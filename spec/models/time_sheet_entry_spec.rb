@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe TimeSheetEntry, type: :model do
-  subject {
-    described_class.new(from: DateTime.now, to: DateTime.now + 10.minutes)
-  }
+  let(:user) { User.create(name: "Bob", email: "bob@gmail.com") }
+  let(:time_sheet) { TimeSheet.create(name: "Project Time Sheet", user: user) }
+  subject { described_class.new(from: DateTime.now, to: DateTime.now + 10.minutes, time_sheet: time_sheet) }
 
   describe "Validations" do
     it "it is valid with valid attributes" do
