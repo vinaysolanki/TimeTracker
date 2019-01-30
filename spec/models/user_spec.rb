@@ -5,13 +5,28 @@ RSpec.describe User, type: :model do
     described_class.new(name: 'Bob Proctor', email: 'bobproctor@gmail.com')
   }
 
-  it "should have a valid name" do
-    subject.name = ''
-    expect(subject).to_not be_valid
+  describe "Validations" do
+    it "is valid with valid attributes" do
+      expect(subject).to be_valid
+    end
+
+    it "is not valid without name" do
+      subject.name = ''
+      expect(subject).to_not be_valid
+    end
+
+      it "is not valid without email" do
+      subject.email = ''
+      expect(subject).to_not be_valid
+    end
+
+    it "is not valid without valid email" do
+      subject.email = 'bobgmail.com'
+      expect(subject).to_not be_valid
+    end
   end
 
-  it "should have a valid email" do
-    subject.email = 'bobgmail.com'
-    expect(subject).to_not be_valid
+  describe "Associations" do
+    it { should have_one(:time_sheet) }
   end
 end
