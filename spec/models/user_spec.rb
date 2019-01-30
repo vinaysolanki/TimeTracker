@@ -24,6 +24,11 @@ RSpec.describe User, type: :model do
       subject.email = 'bobgmail.com'
       expect(subject).to_not be_valid
     end
+
+    it "is not valid without unique email" do
+      User.create(name: "Bobby Proctor", email: 'bobproctor@gmail.com')
+      expect(subject).to_not be_valid
+    end
   end
 
   describe "Associations" do
