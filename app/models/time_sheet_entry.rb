@@ -4,6 +4,8 @@ class TimeSheetEntry < ApplicationRecord
 
   belongs_to :time_sheet
 
+  default_scope { order(from: :asc) }
+
   def start_time
     from.strftime('%A, %d %b %Y %l:%M:%S %p')
   end
