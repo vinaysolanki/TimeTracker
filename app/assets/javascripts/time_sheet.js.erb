@@ -1,0 +1,22 @@
+$(document).ready(function () {
+  $("#time-button").click(function () {
+    if (this.value == "Start") {
+      $("#time_sheet_timer_state").val("1")
+      this.value = "Stop"
+      timer();
+      
+    } else {
+      clearInterval(timer)
+      $("#time_sheet_timer_state").val("0")
+      this.value = "Start"
+      $("h2").text("Timer: 0")
+    }
+  });
+
+  timer = function entryTimer() {
+    start = new Date
+    setInterval(function () {
+      $("h2").text("Timer: " + Math.round((new Date - start) / 1000, 0) + " Seconds");
+    }, 1000)
+  }
+})

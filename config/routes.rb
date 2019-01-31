@@ -4,8 +4,7 @@ Rails.application.routes.draw do
   resources :users, only: [] do
     resources :time_sheets, only: [:show] do
       member do
-        post :start_entry
-        post :stop_entry
+        post :toggle_timer
       end
     end
   end

@@ -1,3 +1,23 @@
 <h1>Time Sheet Tracker</h1>
+<br>
 
-<button>Start</button>
+
+<%= form_for @time_sheet, url: toggle_timer_user_time_sheet_url(@user, @time_sheet), method: :post, remote: true do |f| %>
+  <%= f.hidden_field :timer_state, value: 0 %>
+  <%= f.submit "Start", class: "btn btn-primary", id: "time-button" %>
+<% end %>
+
+<br>
+<br>
+<h2>Timer: 0</h2>
+
+<br>
+<br>
+<h3>Time Sheet</h3>
+<table id=time-sheet>
+  <tr>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Duration</th>
+  </tr>
+</table>
