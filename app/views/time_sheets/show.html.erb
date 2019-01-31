@@ -4,7 +4,7 @@
 
 <%= form_for @time_sheet, url: toggle_timer_user_time_sheet_url(@user, @time_sheet), method: :post, remote: true do |f| %>
   <%= f.hidden_field :timer_state, value: 0 %>
-  <%= f.submit "Start", class: "btn btn-primary", id: "time-button" %>
+  <%= f.submit "Start", class: "btn btn-primary btn-lg", id: "time-button" %>
 <% end %>
 
 <br>
@@ -15,19 +15,19 @@
 <br>
 <br>
 <h3>Time Sheet</h3>
-<table id=time-sheet>
-  <tr>
-    <th>Start Time</th>
-    <th>End Time</th>
-    <th>Duration</th>
+<table id=time-sheet class="table table-sm col-6">
+  <tr class="thead-dark">
+    <th scope="col">Start Time</th>
+    <th scope="col">End Time</th>
+    <th scope="col">Duration</th>
   </tr>
 
   <% @time_sheet.time_sheet_entries.each do |time_sheet_entry| %>
     <% if time_sheet_entry.to.present? %>
-      <tr>
-        <td><%= time_sheet_entry.start_time %></td>
-        <td><%= time_sheet_entry.end_time %></td>
-        <td><%= time_sheet_entry.time_duration %></td>
+      <tr scope="row">
+        <td class="col-3"><%= time_sheet_entry.start_time %></td>
+        <td class="col-3"><%= time_sheet_entry.end_time %></td>
+        <td class="col-1"><%= time_sheet_entry.time_duration %></td>
       </tr>
     <% end %>
   <% end %>
