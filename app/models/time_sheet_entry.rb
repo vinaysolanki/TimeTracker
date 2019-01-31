@@ -15,9 +15,4 @@ class TimeSheetEntry < ApplicationRecord
   def time_duration
     duration.utc.strftime("%H:%M:%S")
   end
-
-  def update_duration
-    self.duration = Time.at(to - from)
-    save
-  end
 end

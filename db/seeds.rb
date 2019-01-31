@@ -5,5 +5,3 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-user = User.create(name: "Bob", email: "bob@gmail.com")
-TimeSheet.create(user: user, name: 'Project Time Sheet')
