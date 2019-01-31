@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   subject {
-    described_class.new(name: 'Bob Proctor', email: 'bobproctor@gmail.com')
+    described_class.new(name: 'Bob Proctor',
+     email: 'bobproctor@gmail.com',
+     password: '123abc',
+     password_confirmation: '123abc'
+    )
   }
 
   describe "Validations" do
@@ -26,7 +30,11 @@ RSpec.describe User, type: :model do
     end
 
     it "is not valid without unique email" do
-      User.create(name: "Bobby Proctor", email: 'bobproctor@gmail.com')
+      User.create(name: "Bobby Proctor", 
+        email: 'bobproctor@gmail.com', 
+        password: '123abc', 
+        password_confirmation: '123abc'
+      )
       expect(subject).to_not be_valid
     end
   end

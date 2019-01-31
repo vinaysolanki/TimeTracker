@@ -32,7 +32,7 @@ class TimeSheetsController < ApplicationController
     @time_sheet_entry = @time_sheet.time_sheet_entries.last
     if @time_sheet_entry.update(to: Time.now)
       @time_sheet_entry.update_duration
-      render 'stop_entry'
+      render 'stop_entry.js'
     else
       render json: { error: "Unable to save end time for time sheet entry" }, status: 400
     end
