@@ -136,6 +136,64 @@ RSpec.describe "Time Tracker", :type => :system do
         expect(find(".time-sheet-entry:nth-child(2)").text).to include("#{(stop_time).strftime('%l:%M:%S')}")
         expect(find(".time-sheet-entry:nth-child(3)").text).to include("00:00:03")
       end
+
+      it "allows you to add multiple time sheet entries" do
+        visit "/users/sign_up"
+
+        fill_in "Name", :with => "Dave Ramsay"
+        fill_in "Email", :with => "daveramsay@gmail.com"
+        fill_in "Password", :with => "123456"
+        fill_in "Password confirmation", :with => "123456"
+        click_button "Sign up"
+
+        expect(page).to have_text("You have signed up successfully.")
+
+        click_button("Start")
+        start_time = Time.now.utc
+
+        sleep(3)
+
+        click_button("Stop")
+        stop_time = Time.now.utc
+
+        expect(page).to have_text("00:00:03")
+        expect(find(".time-sheet-entry:nth-child(1)").text).to include("#{(start_time).strftime('%l:%M:%S')}")
+        expect(find(".time-sheet-entry:nth-child(2)").text).to include("#{(stop_time).strftime('%l:%M:%S')}")
+        expect(find(".time-sheet-entry:nth-child(3)").text).to include("00:00:03")
+
+        click_button("Start")
+        start_time = Time.now.utc
+
+        sleep(2)
+
+        click_button("Stop")
+        stop_time = Time.now.utc
+
+        expect(page).to have_text("00:00:02")
+        expect(find("tr:nth-child(3) .time-sheet-entry:nth-child(1)").text).to include("#{(start_time).strftime('%l:%M:%S')}")
+        expect(find("tr:nth-child(3) .time-sheet-entry:nth-child(2)").text).to include("#{(stop_time).strftime('%l:%M:%S')}")
+        expect(find("tr:nth-child(3) .time-sheet-entry:nth-child(3)").text).to include("00:00:02")
+      end
+    end
+
+    context "User is not logged in" do
+      it "does not allow you to visit time sheet page" do
+        visit "/users/sign_up"
+
+        fill_in "Name", :with => "Dave Ramsay"
+        fill_in "Email", :with => "daveramsay@gmail.com"
+        fill_in "Password", :with => "123456"
+        fill_in "Password confirmation", :with => "123456"
+        click_button "Sign up"
+
+        expect(page).to have_text("You have signed up successfully.")
+
+        click_link("Logout")
+
+        visit "/users/1/time_sheets/1"
+
+        expect(page).to have_text("You need to sign in")
+      end
     end
   end
 end
