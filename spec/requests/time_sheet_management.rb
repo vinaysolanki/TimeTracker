@@ -5,12 +5,13 @@ RSpec.describe "Time Sheet Management", type: :request do
   let(:time_sheet) { TimeSheet.create(name: 'Project Time Sheet', user: user) }
   let(:start_time) { Time.zone.now }
   let(:end_time) { Time.zone.now + 10.minutes }
+  let(:time_sheet_entry) { time_sheet.time_sheet_entries.first }
 
   it "should start a new Time Sheet Entry with current time as From time" do
     post start_entry_time_sheet_url(time_sheet, start_time: start_time)
 
     expect(response.status).to eql(201)
-    expect(time_sheet.time_sheet_entries.first.start_time).to eq(start_time.strftime('%Y-%m-%d %I:%M:%S'))
+    expect(time_sheet_entry.start_time).to eq(start_time.strftime('%Y-%m-%d %I:%M:%S'))
   end
 
   it "should return an error if Time Sheet Entry cannot be created" do
@@ -27,9 +28,16 @@ RSpec.describe "Time Sheet Management", type: :request do
     post stop_entry_time_sheet_url(time_sheet, end_time: end_time)
 
     expect(response.status).to eql(200)
-    expect(time_sheet.time_sheet_entries.first.end_time).to eql(end_time.strftime('%Y-%m-%d %I:%M:%S'))
+    expect(time_sheet_entry.end_time).to eql(end_time.strftime('%Y-%m-%d %I:%M:%S'))
 
   end
-  
-  it "should record duration of Time Sheet Entry"
+
+  it "should record duration of Time Sheet Entry" do
+    post start_entry_time_sheet_url(time_sheet, start_time: start_time)
+
+    post stop_entry_time_sheet_url(time_sheet, end_time: end_time)
+
+    expect(response.status).to eql(200)
+    expect(time_sheet_entry.time_duration).to eql("00:10:00")
+  end
 end

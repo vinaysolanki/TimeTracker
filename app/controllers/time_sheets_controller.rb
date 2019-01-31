@@ -16,6 +16,7 @@ class TimeSheetsController < ApplicationController
   def stop_entry
     @time_sheet_entry = @time_sheet.time_sheet_entries.last
     if @time_sheet_entry.update(to: params[:end_time])
+      @time_sheet_entry.update_duration
       render json: {}, status: 200
     else
       render json: { error: "Unable to save end time for time sheet entry" }, status: 400
