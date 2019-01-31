@@ -9,7 +9,8 @@
 
 <br>
 <br>
-<h2>Timer: 0</h2>
+<h2>Timer</h2>
+<h2 id="basicUsage">00:00:00</h2>
 
 <br>
 <br>
@@ -20,4 +21,14 @@
     <th>End Time</th>
     <th>Duration</th>
   </tr>
+
+  <% @time_sheet.time_sheet_entries.each do |time_sheet_entry| %>
+    <% if time_sheet_entry.to.present? %>
+      <tr>
+        <td><%= time_sheet_entry.start_time %></td>
+        <td><%= time_sheet_entry.end_time %></td>
+        <td><%= time_sheet_entry.time_duration %></td>
+      </tr>
+    <% end %>
+  <% end %>
 </table>

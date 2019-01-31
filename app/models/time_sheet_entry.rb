@@ -5,11 +5,11 @@ class TimeSheetEntry < ApplicationRecord
   belongs_to :time_sheet
 
   def start_time
-    from.strftime('%Y-%m-%d %I:%M:%S')
+    from.strftime('%A, %d %b %Y %l:%M:%S %p')
   end
 
   def end_time
-    to.strftime('%Y-%m-%d %I:%M:%S')
+    to.strftime('%A, %d %b %Y %l:%M:%S %p')
   end
 
   def time_duration

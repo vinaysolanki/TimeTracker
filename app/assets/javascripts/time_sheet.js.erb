@@ -1,22 +1,20 @@
 $(document).ready(function () {
+
+  timer2 = new easytimer.Timer();
+
   $("#time-button").click(function () {
     if (this.value == "Start") {
       $("#time_sheet_timer_state").val("1")
+      timer2.start();
+      timer2.addEventListener('secondsUpdated', function (e) {
+        $('#basicUsage').html(timer2.getTimeValues().toString())
+      });
       this.value = "Stop"
-      timer();
       
     } else {
-      clearInterval(timer)
       $("#time_sheet_timer_state").val("0")
+      timer2.stop();
       this.value = "Start"
-      $("h2").text("Timer: 0")
     }
   });
-
-  timer = function entryTimer() {
-    start = new Date
-    setInterval(function () {
-      $("h2").text("Timer: " + Math.round((new Date - start) / 1000, 0) + " Seconds");
-    }, 1000)
-  }
 })

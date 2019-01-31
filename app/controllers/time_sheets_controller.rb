@@ -3,7 +3,6 @@ class TimeSheetsController < ApplicationController
   before_action :get_time_sheet
 
   def show
-    
   end
 
   def toggle_timer
