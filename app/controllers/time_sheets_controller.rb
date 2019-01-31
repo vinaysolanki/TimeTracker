@@ -1,4 +1,5 @@
 class TimeSheetsController < ApplicationController
+  before_action :authenticate_user!
   before_action :get_user
   before_action :get_time_sheet
 
@@ -38,11 +39,11 @@ class TimeSheetsController < ApplicationController
   end
 
   def get_time_sheet
-    @time_sheet = TimeSheet.find(params[:id])
+    @time_sheet = @user.time_sheet
   end
 
   def get_user
-    @user = User.find(params[:user_id])
+    @user = current_user
   end
 
   def timer_started?

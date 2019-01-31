@@ -33,5 +33,10 @@ RSpec.describe User, type: :model do
 
   describe "Associations" do
     it { should have_one(:time_sheet) }
+
+    it "should create a new time sheet when user is created" do
+      subject.save
+      expect(subject.time_sheet.name).to include("Time Sheet")
+    end
   end
 end
