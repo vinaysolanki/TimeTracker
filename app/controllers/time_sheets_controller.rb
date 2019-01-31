@@ -1,6 +1,10 @@
 class TimeSheetsController < ApplicationController
   before_action :get_time_sheet
 
+  def show
+    
+  end
+
   def start_entry
     @time_sheet_entry = TimeSheetEntry.new(
       time_sheet: @time_sheet, 
