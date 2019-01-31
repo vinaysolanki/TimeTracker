@@ -31,8 +31,9 @@ RSpec.describe "Time Sheet Management", type: :request do
       time_sheet: { timer_state: "0" }
     )
 
+    Time.zone = 'Pacific Time (US & Canada)'
     expect(response.status).to eql(200)
-    expect(time_sheet_entry.end_time).to eql(Time.now.utc.strftime('%A, %d %b %Y %l:%M:%S %p'))
+    expect(time_sheet_entry.end_time).to eql(Time.now.strftime('%A, %d %b %Y %l:%M:%S %p'))
 
   end
 

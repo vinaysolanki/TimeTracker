@@ -111,6 +111,10 @@ RSpec.describe "Time Tracker", :type => :system do
   end
 
   describe "Time Tracker Functionality" do
+    before do
+      Time.zone = 'Pacific Time (US & Canada)'
+    end
+
     context "User is logged in" do
       it "allows you to start a timer and track time" do
         visit "/users/sign_up"
@@ -124,12 +128,12 @@ RSpec.describe "Time Tracker", :type => :system do
         expect(page).to have_text("You have signed up successfully.")
 
         click_button("Start")
-        start_time = Time.now.utc
+        start_time = Time.now
 
         sleep(3)
 
         click_button("Stop")
-        stop_time = Time.now.utc
+        stop_time = Time.now
 
         expect(page).to have_text("00:00:03")
         expect(find(".time-sheet-entry:nth-child(1)").text).to include("#{(start_time).strftime('%l:%M:%S')}")
@@ -149,12 +153,12 @@ RSpec.describe "Time Tracker", :type => :system do
         expect(page).to have_text("You have signed up successfully.")
 
         click_button("Start")
-        start_time = Time.now.utc
+        start_time = Time.now
 
         sleep(3)
 
         click_button("Stop")
-        stop_time = Time.now.utc
+        stop_time = Time.now
 
         expect(page).to have_text("00:00:03")
         expect(find(".time-sheet-entry:nth-child(1)").text).to include("#{(start_time).strftime('%l:%M:%S')}")
@@ -162,12 +166,12 @@ RSpec.describe "Time Tracker", :type => :system do
         expect(find(".time-sheet-entry:nth-child(3)").text).to include("00:00:03")
 
         click_button("Start")
-        start_time = Time.now.utc
+        start_time = Time.now
 
         sleep(2)
 
         click_button("Stop")
-        stop_time = Time.now.utc
+        stop_time = Time.now
 
         expect(page).to have_text("00:00:02")
         expect(find("tr:nth-child(3) .time-sheet-entry:nth-child(1)").text).to include("#{(start_time).strftime('%l:%M:%S')}")
