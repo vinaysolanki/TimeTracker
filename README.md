@@ -1,6 +1,6 @@
 ## Simple Time Tracker
 
-Live Demo: https://time-tracker-2019.herokuapp.com
+**Live Demo: https://time-tracker-2019.herokuapp.com**
 
 ### Tech
 This Time Tracker app uses the following libraries and gems.
